@@ -8,12 +8,6 @@
     <title>Dashboard</title>
 </head>
 <body>
-<h1>Test 1</h1>
-<h1>Test 1</h1>
-<h1>Test 1</h1>
-<h1>Test 1</h1>
-
-
 <div id="react-calendar"></div>
 
 @vite('resources/js/maand.jsx')
