@@ -1,4 +1,3 @@
-// npm install @fullcalendar/react @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/interaction
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import FullCalendar from '@fullcalendar/react';
@@ -8,6 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 export default function JanuaryAgenda() {
     const [events] = useState([
+
         { title: 'Alice: 9am-17pm', start: '2025-01-03T09:00:00', end: '2025-01-03T17:00:00', color: '#3498db' },
         { title: 'Bob: 10am-11am', start: '2025-01-03T10:00:00', end: '2025-01-03T11:00:00', color: '#e67e22' },
         { title: 'Charlie: 8am-12pm', start: '2025-01-04T08:00:00', end: '2025-01-04T12:00:00', color: '#2ecc71' },
@@ -17,6 +17,7 @@ export default function JanuaryAgenda() {
 
     return (
         <div style={{ height: '90vh' }}> {/* 90% of viewport height */}
+
             <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
