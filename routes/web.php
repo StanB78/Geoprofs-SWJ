@@ -18,3 +18,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->middleware('rol:2')->name('register');
+
+Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])
+    ->middleware('rol:2')->name('register.store');
