@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VerzuimController;
+use App\Http\Controllers\MeldingController;
+use App\Models\Melding;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/register', function () {
     return view('auth.register');
@@ -25,3 +29,20 @@ Route::get('/register', function () {
 
 Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])
     ->middleware('rol:2')->name('register.store');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/verzuim', function () {
+        return view('verzuim');
+    })->name('verzuim.create');
+
+    Route::post('/verzuim', [VerzuimController::class, 'store'])->name('verzuim');
+});
+
+
+Route::get('/melding', function () {
+    $meldingen = Melding::where('userID', Auth::id())->get();
+    return view('melding', compact('meldingen'));
+})->middleware('auth')->name('melding');
+
+
+Route::get('/melding/{id}', [MeldingController::class, 'show'])->name('melding.show');

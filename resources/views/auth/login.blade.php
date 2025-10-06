@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
+
 <h1>Login</h1>
 
 @if (session('status'))
@@ -42,5 +37,3 @@
 
     </div>
 </form>
-</body>
-</html>
