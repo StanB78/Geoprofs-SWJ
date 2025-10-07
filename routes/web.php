@@ -27,8 +27,8 @@ Route::get('/register', function () {
     return view('auth.register');
 })->middleware('rol:2')->name('register');
 
-Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])
-    ->middleware('rol:2')->name('register.store');
+Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/verzuim', function () {
@@ -39,10 +39,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/melding', function () {
-    $meldingen = Melding::where('userID', Auth::id())->get();
-    return view('melding', compact('meldingen'));
-})->middleware('auth')->name('melding');
-
-
-Route::get('/melding/{id}', [MeldingController::class, 'show'])->name('melding.show');
+Route::middleware('auth')->group(function () {
+Route::get('/melding', [MeldingController::class, 'show'])->name('melding.show');
+});

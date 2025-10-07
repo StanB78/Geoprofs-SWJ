@@ -34,10 +34,10 @@ class MeldingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        $melding = Melding::findOrFail($id);
-        return view('meldingen.show', compact('melding'));
+        $meldingen = Melding::all();
+        return view('melding', compact('meldingen'));
     }
 
     /**

@@ -7,7 +7,9 @@
 
 <a href="{{ route('register') }}">maak nieuw gebruiker</a>
 <a href="{{ route('verzuim') }}">verzuim</a>
-<a href="{{ route('melding') }}">meldingen</a>
+<a href="{{ route('melding.show') }}">meldingen</a>
+
+
 
 @auth
 
