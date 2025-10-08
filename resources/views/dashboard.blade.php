@@ -1,4 +1,5 @@
 <x-app-layout>
+    <body class="background">
     <div class="auth-header">
         <h1 class="auth-title">
             Logged in as:
@@ -20,4 +21,5 @@
             @endauth
         </div>
     </div>
+    </body>
 </x-app-layout>
