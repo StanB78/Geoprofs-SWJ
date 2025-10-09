@@ -7,54 +7,35 @@ use Illuminate\Http\Request;
 
 class MeldingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show()
     {
         $meldingen = Melding::all();
         return view('melding', compact('meldingen'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function confirm($id)
     {
         $melding = Melding::findOrFail($id);
 
-        // Controleer of het vinkje is aangevinkt (checkbox geeft 'on' als waarde)
-        $melding->status = $request->has('status') ? true : false;
+        if ($melding->soort != 2) {
+            return redirect()->route('melding.show')
+                ->with('error', 'Alleen verlof meldingen kunnen geaccepteerd worden.');
+        }
 
-        $melding->save();
-
-        return redirect()->back()->with('success', 'Status succesvol bijgewerkt.');
+        return view('melding-confirm', compact('melding'));
     }
 
+    public function accept($id)
+    {
+        $melding = Melding::findOrFail($id);
+
+        if ($melding->soort == 2) {
+            $melding->status = true;
+            $melding->save();
+        }
+
+        return redirect()->route('melding.show')->with('success', 'Melding geaccepteerd!');
+    }
 
     public function destroy(string $id)
     {

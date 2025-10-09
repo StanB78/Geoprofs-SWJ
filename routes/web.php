@@ -26,7 +26,7 @@ require __DIR__ . '/auth.php';
 
 Route::get('/register', function () {
     return view('auth.register');
-})->middleware('rol:2')->name('register');
+
 
 Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
 
@@ -41,5 +41,8 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-Route::get('/melding', [MeldingController::class, 'show'])->name('melding.show');
+    Route::get('/melding', [MeldingController::class, 'show'])->name('melding.show');
+    Route::get('/melding/{id}/confirm', [MeldingController::class, 'confirm'])->name('melding.confirm');
+    Route::post('/melding/{id}/accept', [MeldingController::class, 'accept'])->name('melding.accept');
 });
+

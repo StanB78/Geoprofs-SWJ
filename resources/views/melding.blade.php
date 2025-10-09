@@ -25,11 +25,13 @@
                 <td>{{ $melding->created_at->format('d-m-Y H:i') }}</td>
                 <td>
                     @if($melding->soort == 2)
-                        <form>
-                            <input TYPE="checkbox" VALUE="status">accepteer
-                        </form>
-
+                        @if(!$melding->status)
+                            <a href="{{ route('melding.confirm', $melding->meldingID) }}">accepteer</a>
+                        @else
+                            Geaccepteerd
+                        @endif
                     @endif
+
                 </td>
             </tr>
         @endforeach
