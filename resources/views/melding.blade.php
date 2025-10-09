@@ -8,6 +8,7 @@
             <th>Soort</th>
             <th>Melding</th>
             <th>Datum</th>
+            <th>status</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,14 @@
                     @endif
                 <td>{{ $melding->melding }}</td>
                 <td>{{ $melding->created_at->format('d-m-Y H:i') }}</td>
+                <td>
+                    @if($melding->soort == 2)
+                        <form>
+                            <input TYPE="checkbox" VALUE="status">accepteer
+                        </form>
+
+                    @endif
+                </td>
             </tr>
         @endforeach
         </tbody>

@@ -41,26 +41,26 @@ class MeldingController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $melding = Melding::findOrFail($id);
+
+        // Controleer of het vinkje is aangevinkt (checkbox geeft 'on' als waarde)
+        $melding->status = $request->has('status') ? true : false;
+
+        $melding->save();
+
+        return redirect()->back()->with('success', 'Status succesvol bijgewerkt.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
-        //
+        $melding = Melding::findOrFail($id);
+        $melding->delete();
+
+        return redirect()->back()->with('success', 'Melding succesvol verwijderd.');
     }
 }
