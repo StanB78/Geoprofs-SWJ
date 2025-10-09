@@ -22,7 +22,7 @@
                 </button>
 
                 <select id="langSelect" class="px-2 py-1 border rounded-md">
-                    <option value="nl-NL" selected>Nederlands</option>
+                    <option value="nl-NL" selected>Dutch</option>
                     <option value="en-US">Engels</option>
                 </select>
 
