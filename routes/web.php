@@ -26,7 +26,7 @@ require __DIR__ . '/auth.php';
 
 Route::get('/register', function () {
     return view('auth.register');
-
+})->middleware('rol:3')->name('register');
 
 Route::post('/register', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
 

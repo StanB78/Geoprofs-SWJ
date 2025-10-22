@@ -11,18 +11,24 @@ class VerzuimController extends Controller
     {
         // Validation
         $request->validate([
-            'melding' => 'required|string|max:65535',
-            'redenverzuim' => 'required|in:1,2',
+            'melding' => 'required',
+            'redenverzuim' => 'required',
         ]);
 
-        // Save to database
+        $user = auth()->user();
+
+        if ($request->redenverzuim == 2) {
+
+            $user->leaveToken -= 1;
+            $user->save();
+        }
+
         Verzuim::create([
-            'userID' => auth()->id(),
+            'userID' => $user->id,
             'soort' => $request->redenverzuim,
             'melding' => $request->melding,
         ]);
 
-        return redirect()->back()->with('success', 'Verzuim succesvol geregistreerd!');
+        return redirect()->back();
     }
-
 }

@@ -1,10 +1,13 @@
 <form method="POST" action="{{ route('verzuim') }}">
     <h1>verzuim</h1>
     @csrf
+
+    <h2>aantal tokens over: {{ Auth::user()->leaveToken }}</h2>
     <div>
         <label for="melding">Melding</label>
         <input id="melding" type="text" name="melding" value="{{ old('melding') }}" required autofocus>
     </div>
+
 
     <div>
         <label for="soort">Soort</label>
