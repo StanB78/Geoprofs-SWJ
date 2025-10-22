@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/melding', [MeldingController::class, 'show'])->name('melding.show');
+    Route::get('/melding', [MeldingController::class, 'show'])->middleware('rol:2')->name('melding');
     Route::get('/melding/{id}/confirm', [MeldingController::class, 'confirm'])->name('melding.confirm');
     Route::post('/melding/{id}/accept', [MeldingController::class, 'accept'])->name('melding.accept');
 });

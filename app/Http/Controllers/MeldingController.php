@@ -25,7 +25,7 @@ class MeldingController extends Controller
         $melding = Melding::findOrFail($id);
 
         if ($melding->soort != 2) {
-            return redirect()->route('melding.show');
+            return redirect()->route('melding');
         }
 
         return view('melding-confirm', compact('melding'));
@@ -40,7 +40,7 @@ class MeldingController extends Controller
             $melding->save();
         }
 
-        return redirect()->route('melding.show');
+        return redirect()->route('melding');
     }
 
     public function destroy(string $id)

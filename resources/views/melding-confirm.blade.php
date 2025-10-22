@@ -11,5 +11,5 @@
 <form action="{{ route('melding.accept', $melding->meldingID) }}" method="POST">
     @csrf
     <button type="submit">Ja, accepteer</button>
-    <a href="{{ route('melding.show') }}"> Nee, terug</a>
+    <a href="{{ route('melding') }}"> Nee, terug</a>
 </form>

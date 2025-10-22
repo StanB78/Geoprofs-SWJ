@@ -17,7 +17,7 @@
 
                 <a href="{{ route('verzuim') }}" class="btn-secondary">verzuim</a>
                 @if(\App\Http\Middleware\RoleCheck::check(2))
-                    <a href="{{ route('melding.show') }}" class="btn-secondary">Melding</a>
+                    <a href="{{ route('melding') }}" class="btn-secondary">Melding</a>
                 @endif
 
 
