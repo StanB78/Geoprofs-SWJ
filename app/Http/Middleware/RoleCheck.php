@@ -15,4 +15,9 @@ class RoleCheck
 
         return $next($request);
     }
+
+    public static function check($rol)
+    {
+        return Auth::check() && Auth::user()->rol >= $rol;
+    }
 }

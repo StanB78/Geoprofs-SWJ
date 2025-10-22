@@ -11,7 +11,16 @@
                 <a href="{{ route('login') }}" class="btn-primary">Log in</a>
             @endguest
 
-            <a href="{{ route('register') }}" class="btn-secondary">Create new User</a>
+                @if(\App\Http\Middleware\RoleCheck::check(3))
+                    <a href="{{ route('register') }}" class="btn-secondary">Create new User</a>
+                @endif
+
+                <a href="{{ route('verzuim') }}" class="btn-secondary">verzuim</a>
+                @if(\App\Http\Middleware\RoleCheck::check(2))
+                    <a href="{{ route('melding.show') }}" class="btn-secondary">Melding</a>
+                @endif
+
+
 
             @auth
                 <form method="POST" action="{{ route('logout') }}" class="inline">
