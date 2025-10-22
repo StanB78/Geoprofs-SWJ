@@ -9,6 +9,7 @@
             <th>Melding</th>
             <th>Datum</th>
             <th>status</th>
+            <th>Saldo</th>
         </tr>
         </thead>
         <tbody>
@@ -33,7 +34,12 @@
                     @endif
 
                 </td>
+
+                <td>{{ $melding->leaveToken }}</td>
+
+
             </tr>
+
         @endforeach
         </tbody>
     </table>

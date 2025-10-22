@@ -12,4 +12,9 @@ class Verzuim extends Model
     protected $table = 'meldingen';
     protected $primaryKey = 'meldingID';
     protected $fillable = ['userID', 'soort', 'melding'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userID');
+    }
 }

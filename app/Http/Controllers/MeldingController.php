@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Melding;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class MeldingController extends Controller
 {
     public function show()
     {
         $meldingen = Melding::all();
+
+
+        foreach ($meldingen as $melding) {
+            $melding->leaveToken = User::find($melding->userID)->leaveToken;
+        }
+
         return view('melding', compact('meldingen'));
     }
 
@@ -18,8 +25,7 @@ class MeldingController extends Controller
         $melding = Melding::findOrFail($id);
 
         if ($melding->soort != 2) {
-            return redirect()->route('melding.show')
-                ->with('error', 'Alleen verlof meldingen kunnen geaccepteerd worden.');
+            return redirect()->route('melding.show');
         }
 
         return view('melding-confirm', compact('melding'));
@@ -34,7 +40,7 @@ class MeldingController extends Controller
             $melding->save();
         }
 
-        return redirect()->route('melding.show')->with('success', 'Melding geaccepteerd!');
+        return redirect()->route('melding.show');
     }
 
     public function destroy(string $id)
@@ -42,6 +48,6 @@ class MeldingController extends Controller
         $melding = Melding::findOrFail($id);
         $melding->delete();
 
-        return redirect()->back()->with('success', 'Melding succesvol verwijderd.');
+        return redirect()->back();
     }
 }
