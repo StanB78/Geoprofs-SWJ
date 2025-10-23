@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Verzuim;
 
-class VerzuimController extends Controller
+class verzuimController extends Controller
 {
     public function store(Request $request)
     {
@@ -27,6 +27,8 @@ class VerzuimController extends Controller
             'userID' => $user->id,
             'soort' => $request->redenverzuim,
             'melding' => $request->melding,
+            'startdatum' => $request->startdatum,
+            'einddatum' => $request->einddatum,
         ]);
 
         return redirect()->back();

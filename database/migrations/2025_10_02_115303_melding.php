@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('soort');
             $table->text('melding');
             $table->timestamps();
+            $table->date('startdatum')->nullable();
+            $table->date('einddatum')->nullable();
             $table->boolean('status')->nullable();
         });
     }

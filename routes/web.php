@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\VerzuimController;
+use App\Http\Controllers\verzuimController;
 use App\Http\Controllers\MeldingController;
 use App\Models\Melding;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
         return view('verzuim');
     })->name('verzuim.create');
 
-    Route::post('/verzuim', [VerzuimController::class, 'store'])->name('verzuim');
+    Route::post('/verzuim', [verzuimController::class, 'store'])->name('verzuim');
 });
 
 

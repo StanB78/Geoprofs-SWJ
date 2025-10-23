@@ -47,7 +47,6 @@ class MeldingController extends Controller
     {
         $melding = Melding::findOrFail($id);
         $melding->delete();
-
         return redirect()->back();
     }
 }

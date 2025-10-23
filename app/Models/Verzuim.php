@@ -11,7 +11,7 @@ class Verzuim extends Model
 
     protected $table = 'meldingen';
     protected $primaryKey = 'meldingID';
-    protected $fillable = ['userID', 'soort', 'melding'];
+    protected $fillable = ['userID', 'soort', 'melding','startdatum','einddatum'];
 
     public function user()
     {

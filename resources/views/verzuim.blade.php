@@ -16,7 +16,13 @@
             <option value="2">Verlof vragen</option>
         </select>
     </div>
+    <div>
+        <label for="startdatum"></label>
+        <input type="date" id="startdatum" name="startdatum">
+    </div>
 
+    <label for="einddatum"></label>
+    <input type="date" id="einddatum" name="einddatum">
     <div>
         <button type="submit">submit</button>
     </div>
