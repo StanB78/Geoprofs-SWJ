@@ -1,4 +1,4 @@
-
+<x-app-layout>
 <h1>Meldingen</h1>
 
     <table>
@@ -45,3 +45,4 @@
     </table>
 
 <a href="{{ route('dashboard') }}">terug</a>
+    </x-app-layout>

@@ -1,4 +1,5 @@
-<form method="POST" action="{{ route('verzuim') }}">
+<x-app-layout>
+    <form method="POST" action="{{ route('verzuim') }}">
     <h1>verzuim</h1>
     @csrf
 
@@ -28,3 +29,4 @@
     </div>
 </form>
 <a href="{{ route('dashboard') }}">terug</a>
+    </x-app-layout>
