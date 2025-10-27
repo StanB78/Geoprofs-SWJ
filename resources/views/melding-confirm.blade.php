@@ -1,3 +1,6 @@
+{{--comments--}}
+{{--|| add styling --}}
+
 <h2>Melding accepteren</h2>
 
 <p>Weet je zeker dat je deze melding wilt accepteren?</p>

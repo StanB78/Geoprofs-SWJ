@@ -1,4 +1,11 @@
+{{--comments--}}
+{{--|| add soe when you can eccept somehting it has a nice button and
+that you can see clearly see when somehtong is accepted --}}
+
+{{--|| make it so the tabels look more orinized--}}
+
 <x-app-layout>
+
 <h1>Meldingen</h1>
 
     <table>

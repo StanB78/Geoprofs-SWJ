@@ -1,3 +1,6 @@
+{{--comments--}}
+{{--|| date label add so you cant select previous datums --}}
+
 <x-app-layout>
     <form method="POST" action="{{ route('verzuim') }}">
     <h1>verzuim</h1>

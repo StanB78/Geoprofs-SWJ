@@ -1,3 +1,6 @@
+{{--comments--}}
+{{--|| add stylings as landings page  --}}
+
 <!DOCTYPE html>
 <html>
 <head>
