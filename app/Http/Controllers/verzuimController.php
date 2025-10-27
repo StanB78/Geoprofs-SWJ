@@ -19,6 +19,9 @@ class verzuimController extends Controller
 
         if ($request->redenverzuim == 2) {
 
+            if ($user->leaveToken <= 0) {
+                return redirect()->back()->with('error', 'Je hebt geen tokens meer over.');
+            }
             $user->leaveToken -= 1;
             $user->save();
         }
