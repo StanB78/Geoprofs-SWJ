@@ -1,5 +1,4 @@
 @if (!Auth::check())
-    <script>window.location.href = "{{ route('welcome') }}";</script>
 @endif
 
 <nav x-data="{ open: false }" class="bg-blue-950 border-b border-white">
