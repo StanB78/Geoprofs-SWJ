@@ -1,43 +1,51 @@
-{{--comments--}}
-{{--|| date label add so you cant select previous datums --}}
 <x-app-layout>
-    <form method="POST" action="{{ route('verzuim') }}">
-        <h1>verzuim</h1>
-        @csrf
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div style="width: 100%; max-width: 400px; padding: 2rem; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center;">
 
-        <h2>aantal tokens over: {{ Auth::user()->leaveToken }}</h2>
+            <h1 style="margin-bottom: 1.5rem; color: orange;">Verzuim</h1>
 
-        <div>
-            <label for="melding">Melding</label>
-            <input id="melding" type="text" name="melding" value="{{ old('melding') }}" required autofocus>
+            <form method="POST" action="{{ route('verzuim') }}" style="display: flex; flex-direction: column; gap: 1rem;">
+                @csrf
+
+                <h2 style="margin-bottom: 1rem; color: #555;">Aantal tokens over: {{ Auth::user()->leaveToken }}</h2>
+
+                <div style="text-align: left;">
+                    <label for="melding">Melding</label>
+                    <input id="melding" type="text" name="melding" value="{{ old('melding') }}" required autofocus
+                           style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div style="text-align: left;">
+                    <label for="soort">Soort</label>
+                    <select id="soort" name="redenverzuim"
+                            style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="1">Ziekmelden</option>
+                        <option value="2">Verlof vragen</option>
+                    </select>
+                </div>
+
+                <div style="text-align: left;">
+                    <label for="startdatum">Startdatum</label>
+                    <input type="date" id="startdatum" name="startdatum" min="{{ date('Y-m-d') }}"
+                           style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div style="text-align: left;">
+                    <label for="einddatum">Einddatum</label>
+                    <input type="date" id="einddatum" name="einddatum" min="{{ date('Y-m-d') }}"
+                           style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <button type="submit" style="padding: 0.75rem; background: darkorange; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Submit
+                </button>
+
+                <div style="margin-top: 1rem;">
+                    <a href="{{ route('dashboard') }}" style="color: #3490dc;">Terug</a>
+                </div>
+            </form>
+
+            <x-overlay-message />
         </div>
-
-        <div>
-            <label for="soort">Soort</label>
-            <select id="soort" name="redenverzuim">
-                <option value="1">Ziekmelden</option>
-                <option value="2">Verlof vragen</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="startdatum">Startdatum</label>
-            <input type="date" id="startdatum" name="startdatum">
-        </div>
-
-        <div>
-            <label for="einddatum">Einddatum</label>
-            <input type="date" id="einddatum" name="einddatum">
-        </div>
-
-        <div>
-            <button type="submit">submit</button>
-        </div>
-    </form>
-
-    <a href="{{ route('dashboard') }}">terug</a>
-
-    <x-overlay-message />
-
-
+    </div>
 </x-app-layout>
