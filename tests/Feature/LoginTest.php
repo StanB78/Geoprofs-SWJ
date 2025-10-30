@@ -23,8 +23,7 @@ it('allows a user to log in', function () {
         'password' => 'password',
     ])->assertRedirect(route('dashboard'));
 
-
-    //assertAuthenticatedAs
+    //assertAuthenticatedAs links to alr existing laravel file so checks if
     $this->assertAuthenticatedAs($user);
 });
 
