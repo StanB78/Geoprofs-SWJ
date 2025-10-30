@@ -9,25 +9,22 @@ it('has login page', function () {
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-it('user login', function () {
-    // Create a user named "test" with rol = 3
-    $user = User::create([
-        'name' => 'test',
-        'email' => 'test@example.com',
-        'password' => Hash::make('password'),
+it('allows a user to log in', function () {
+    // Create user
+    $user = User::factory()->create([
+        'password' => bcrypt('password'),
         'rol' => 3,
         'leaveToken' => 2,
     ]);
 
-    // Attempt to log in with valid credentials
-    $response = $this->post('/login', [
-        'email' => 'test@example.com',
+    // Attempt login
+    $this->post('/login', [
+        'email' => $user->email,
         'password' => 'password',
-    ]);
+    ])->assertRedirect(route('dashboard'));
 
-    // Verify authentication worked
+
+    //assertAuthenticatedAs
     $this->assertAuthenticatedAs($user);
-
-    // Verify redirect (adjust if your app redirects elsewhere)
-    $response->assertRedirect(route('dashboard', absolute: false));
 });
+
