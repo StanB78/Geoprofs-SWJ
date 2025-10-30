@@ -19,7 +19,7 @@ class AuthHeaderTest extends TestCase
 
         $response->assertStatus(200)
             ->assertSee('Logged in as:')
-            ->assertSee('Niet')
+            ->assertSee('Niet toegestaan')
             ->assertSee('Log in')
             ->assertDontSee('Log out')
             ->assertDontSee('Create new User')
@@ -34,13 +34,13 @@ class AuthHeaderTest extends TestCase
     {
         $user = User::factory()->create([
             'role_id' => 1,
-            'name' => 'Alice',
+            'name' => 'Jan',
         ]);
 
         $response = $this->actingAs($user)->get('/');
 
         $response->assertStatus(200)
-            ->assertSee('Alice')
+            ->assertSee('Jan')
             ->assertSee('verzuim')
             ->assertSee('Log out')
             ->assertDontSee('Create new User')
@@ -74,13 +74,13 @@ class AuthHeaderTest extends TestCase
     {
         $user = User::factory()->create([
             'role_id' => 3,
-            'name' => 'Carol',
+            'name' => 'Piet',
         ]);
 
         $response = $this->actingAs($user)->get('/');
 
         $response->assertStatus(200)
-            ->assertSee('Carol')
+            ->assertSee('Piet')
             ->assertSee('verzuim')
             ->assertSee('Create new User')
             ->assertSee('Log out');
