@@ -31,8 +31,9 @@
 
     <div>
         <label for="cars">rol:</label>
-        <select id="role" name="role">
-            <option value="1">Werknemer </option>
+        <select id="rol" name="rol">
+
+        <option value="1">Werknemer </option>
             <option value="2">Manager/Teamlead</option>
             <option value="3">Administratie/HR</option>
         </select>

@@ -6,7 +6,7 @@ it('guest user (not logged in) try to go to /register', function () {
     //go to /register page
     $response = $this->get('/register');
     //should get 403 melding (no right to see this page)
-    $response->assertStatus(403);
+    $response->assertStatus(403); // geen toegang
 });
 
 
