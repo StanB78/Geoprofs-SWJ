@@ -5,6 +5,7 @@
             <h1 style="margin-bottom: 1.5rem; color: orange;">Verzuim</h1>
 
             <form method="POST" action="{{ route('verzuim') }}" style="display: flex; flex-direction: column; gap: 1rem;">
+
                 @csrf
 
                 <h2 style="margin-bottom: 1rem; color: #555;">Aantal verlof dagen: {{ Auth::user()->leaveToken }}</h2>
