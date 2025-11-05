@@ -48,32 +48,67 @@
         </div>
     </div>
 
+
     <script>
         const soortSelect = document.getElementById('soort');
-        const einddatumContainer = document.getElementById('einddatum-container');
-        const einddatumInput = document.getElementById('einddatum');
+        const startInput = document.getElementById('startdatum');
+        const endInput = document.getElementById('einddatum');
+        const endContainer = document.getElementById('einddatum-container');
+        const leaveTokens = {{ Auth::user()->leaveToken }}; // User tokens
 
-        function updateDateFields() {
+        function formatDate(date) {
+            const d = new Date(date);
+            const month = ('0' + (d.getMonth() + 1)).slice(-2);
+            const day = ('0' + d.getDate()).slice(-2);
+            return `${d.getFullYear()}-${month}-${day}`;
+        }
+
+        function updateEndDate() {
+            if (!startInput.value) return;
+            const startDate = new Date(startInput.value);
+            const maxDate = new Date(startDate);
+            if(leaveTokens == 0){
+                maxDate.setDate(maxDate.getDate() + leaveTokens - 0);
+            }
+            else{
+                maxDate.setDate(maxDate.getDate() + leaveTokens - 1);
+            }
+
+
+            endInput.min = formatDate(startDate);
+            endInput.max = formatDate(maxDate);
+
+            const currentEnd = new Date(endInput.value);
+            if (!endInput.value || currentEnd < startDate || currentEnd > maxDate) {
+                endInput.value = formatDate(startDate);
+            }
+        }
+
+        function updateForm() {
             if (soortSelect.value === '1') {
-                // Sick leave: only one date
-                einddatumContainer.style.display = 'none';
-                einddatumInput.value = '';
+                // Sick leave → hide end date
+                endContainer.style.display = 'none';
+                endInput.value = '';
             } else {
-                // Leave request: allow start and end dates
-                einddatumContainer.style.display = 'block';
+                // Leave request → show end date
+                endContainer.style.display = 'block';
+                updateEndDate();
             }
         }
 
         // Initial load
-        updateDateFields();
+        updateForm();
 
-        // Update on change
-        soortSelect.addEventListener('change', updateDateFields);
+        // Event listeners
+        soortSelect.addEventListener('change', updateForm);
+        startInput.addEventListener('change', updateEndDate);
     </script>
+
 
 
     {{--    https://sweetalert2.github.io/#--}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     @if(session('error'))
         <script>

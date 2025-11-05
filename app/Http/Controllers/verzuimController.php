@@ -10,26 +10,30 @@ class verzuimController extends Controller
 {
     public function store(Request $request)
     {
-        // Validation
         $request->validate([
             'melding' => 'required',
             'redenverzuim' => 'required',
+            'startdatum' => 'required|date',
         ]);
 
         $user = auth()->user();
 
         if ($request->redenverzuim == 2) {
-
-            if ($user->leaveToken <= 0) {
-                return redirect()->back()->with('error', 'Je hebt geen tokens meer over.');
+            if (!$request->einddatum) {
+                return redirect()->back()->with('error', 'Einddatum is verplicht voor verlof.');
             }
 
-            $user->leaveToken -= 1;
+            $start = new \DateTime($request->startdatum);
+            $end = new \DateTime($request->einddatum);
+            $interval = $start->diff($end)->days + 1; // Include start day
+
+            if ($interval > $user->leaveToken) {
+                return redirect()->back()->with('error', 'Je hebt niet genoeg tokens voor dit aantal dagen.');
+            }
+
+            $user->leaveToken -= $interval;
             $user->save();
-
         }
-
-
 
         Verzuim::create([
             'userID' => $user->id,
@@ -41,4 +45,5 @@ class verzuimController extends Controller
 
         return redirect()->back()->with('success', 'Verzoek verzonden.');
     }
+
 }
