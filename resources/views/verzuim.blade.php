@@ -7,7 +7,7 @@
             <form method="POST" action="{{ route('verzuim') }}" style="display: flex; flex-direction: column; gap: 1rem;">
                 @csrf
 
-                <h2 style="margin-bottom: 1rem; color: #555;">Aantal tokens over: {{ Auth::user()->leaveToken }}</h2>
+                <h2 style="margin-bottom: 1rem; color: #555;">Aantal verlof dagen: {{ Auth::user()->leaveToken }}</h2>
 
                 <div style="text-align: left;">
                     <label for="melding">Melding</label>
