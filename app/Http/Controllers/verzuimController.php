@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Verzuim;
+use function Laravel\Prompts\alert;
 
 class verzuimController extends Controller
 {
@@ -22,9 +23,13 @@ class verzuimController extends Controller
             if ($user->leaveToken <= 0) {
                 return redirect()->back()->with('error', 'Je hebt geen tokens meer over.');
             }
+
             $user->leaveToken -= 1;
             $user->save();
+
         }
+
+
 
         Verzuim::create([
             'userID' => $user->id,
@@ -34,6 +39,6 @@ class verzuimController extends Controller
             'einddatum' => $request->einddatum,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Verzoek verzonden.');
     }
 }

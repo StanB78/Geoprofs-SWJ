@@ -45,7 +45,35 @@
                 </div>
             </form>
 
-            <x-overlay-message />
         </div>
     </div>
+
+
+{{--https://sweetalert2.github.io/#--}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oeps...',
+                text: "{{ session('error') }}",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Gelukt!',
+                text: "{{ session('success') }}",
+                timer: 2500,
+                showConfirmButton: false
+            });
+        </script>
+    @endif
+
 </x-app-layout>

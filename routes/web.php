@@ -23,13 +23,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+
 require __DIR__ . '/auth.php';
 
 Route::get('/register', function () {
     return view('auth.register');
 })->middleware('rolecheck:3')->name('register');
 
-Route::get('/melding', [MeldingController::class, 'show'])
+Route::get('/melding', [Me\ldingController::class, 'show'])
     ->middleware('rolecheck:2')
     ->name('melding');
 
