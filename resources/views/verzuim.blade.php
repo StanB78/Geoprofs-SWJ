@@ -30,7 +30,7 @@
                            style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
                 </div>
 
-                <div style="text-align: left;">
+                <div style="text-align: left;" id="einddatum-container">
                     <label for="einddatum">Einddatum</label>
                     <input type="date" id="einddatum" name="einddatum" min="{{ date('Y-m-d') }}"
                            style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
@@ -48,8 +48,31 @@
         </div>
     </div>
 
+    <script>
+        const soortSelect = document.getElementById('soort');
+        const einddatumContainer = document.getElementById('einddatum-container');
+        const einddatumInput = document.getElementById('einddatum');
 
-{{--https://sweetalert2.github.io/#--}}
+        function updateDateFields() {
+            if (soortSelect.value === '1') {
+                // Sick leave: only one date
+                einddatumContainer.style.display = 'none';
+                einddatumInput.value = '';
+            } else {
+                // Leave request: allow start and end dates
+                einddatumContainer.style.display = 'block';
+            }
+        }
+
+        // Initial load
+        updateDateFields();
+
+        // Update on change
+        soortSelect.addEventListener('change', updateDateFields);
+    </script>
+
+
+    {{--    https://sweetalert2.github.io/#--}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if(session('error'))
