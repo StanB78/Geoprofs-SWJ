@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Melding;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class MeldingController extends Controller
 {
     public function show()
     {
         $meldingen = Melding::all();
-
 
         foreach ($meldingen as $melding) {
             $melding->leaveToken = User::find($melding->userID)->leaveToken;
@@ -36,11 +35,29 @@ class MeldingController extends Controller
         $melding = Melding::findOrFail($id);
 
         if ($melding->soort == 2) {
-            $melding->status = true;
+            $melding->status = 'approved';
             $melding->save();
         }
+        return redirect()->route('melding')->with('success', 'Melding goedgekeurd.');
+    }
 
-        return redirect()->route('melding');
+    public function reject($id)
+    {
+        $melding = Melding::findOrFail($id);
+
+        if ($melding->soort == 2) {
+            $melding->status = 'rejected';
+            $melding->save();
+
+            $user = User::find($melding->userID);
+            if ($user) {
+                $user->leaveToken += 1;
+                $user->save();
+            }
+            return view('melding-reject', compact('melding'));
+        }
+
+        return redirect()->route('melding')->with('error', 'Melding afgewezen.');
     }
 
     public function destroy(string $id)

@@ -14,6 +14,8 @@ it('user with right role can see the Log Out button', function () {
 
     $response->assertDontSeeText('Melding');
     $response->assertSeeText('Log Out');
+    $response->assertSeeText('verzuim');
+
 });
 
 it('user with right role can see the Melding button', function () {

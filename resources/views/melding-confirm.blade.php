@@ -1,6 +1,4 @@
-{{--comments--}}
-{{--|| add styling --}}
-
+<x-app-layout>
 <h2>Melding accepteren</h2>
 
 <p>Weet je zeker dat je deze melding wilt accepteren?</p>
@@ -13,6 +11,7 @@
 
 <form action="{{ route('melding.accept', $melding->meldingID) }}" method="POST">
     @csrf
-    <button type="submit">Ja, accepteer</button>
+    <a href="{{ route('melding') }}"> Ja, accepteren</a>
     <a href="{{ route('melding') }}"> Nee, terug</a>
 </form>
+</x-app-layout>
