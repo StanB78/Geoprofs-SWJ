@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Melding;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class MeldingController extends Controller
 {
@@ -31,12 +32,17 @@ class MeldingController extends Controller
         return view('melding-confirm', compact('melding'));
     }
 
-    public function accept($id)
+    public function accept($id, Request $request)
     {
         $melding = Melding::findOrFail($id);
 
+        $request->validate([
+            'sendmessage' => ['required', 'string', 'max:255'],
+        ]);
+
         if ($melding->soort == 2) {
             $melding->status = true;
+            $melding->sendmessage = $request->sendmessage;
             $melding->save();
         }
 

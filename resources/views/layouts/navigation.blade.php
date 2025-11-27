@@ -19,9 +19,15 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('berichten')" :active="request()->routeIs('berichten')" class="text-white">
+                        {{ __('Berichten') }}
+                    </x-nav-link>
+
                     <x-nav-link :href="route('about')" :active="request()->routeIs('about')" class="text-white">
                         {{ __('About') }}
                     </x-nav-link>
+
+
                 </div>
             </div>
 

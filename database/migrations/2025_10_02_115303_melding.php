@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('userID');
             $table->integer('soort');
             $table->text('melding');
+            $table->text('sendmessage')->nullable();
             $table->timestamps();
             $table->date('startdatum')->nullable();
             $table->date('einddatum')->nullable();
