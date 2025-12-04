@@ -42,7 +42,6 @@ class MeldingController extends Controller
         ]);
 
         if ($melding->soort == 2) {
-            $melding->status = true;
             $melding->sendmessage = $request->sendmessage;
             $melding->status = 'approved';
             $melding->save();
