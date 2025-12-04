@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+
 class MeldingController extends Controller
 {
     public function show()
@@ -43,10 +44,29 @@ class MeldingController extends Controller
         if ($melding->soort == 2) {
             $melding->status = true;
             $melding->sendmessage = $request->sendmessage;
+            $melding->status = 'approved';
             $melding->save();
         }
+        return redirect()->route('melding')->with('success', 'Melding goedgekeurd.');
+    }
 
-        return redirect()->route('melding');
+    public function reject($id)
+    {
+        $melding = Melding::findOrFail($id);
+
+        if ($melding->soort == 2) {
+            $melding->status = 'rejected';
+            $melding->save();
+
+            $user = User::find($melding->userID);
+            if ($user) {
+                $user->leaveToken += 1;
+                $user->save();
+            }
+            return view('melding-reject', compact('melding'));
+        }
+
+        return redirect()->route('melding')->with('error', 'Melding afgewezen.');
     }
 
     public function destroy(string $id)

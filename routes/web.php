@@ -60,5 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/melding', [MeldingController::class, 'show'])->middleware('rolecheck:2')->name('melding');
     Route::get('/melding/{id}/confirm', [MeldingController::class, 'confirm'])->name('melding.confirm');
     Route::post('/melding/{id}/accept', [MeldingController::class, 'accept'])->name('melding.accept');
+    Route::get('/melding/{id}/reject', [MeldingController::class, 'reject'])->name('melding.reject');
+
 });
 

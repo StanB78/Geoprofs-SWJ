@@ -34,10 +34,16 @@ that you can see clearly see when somehtong is accepted --}}
                 <td>
                     @if($melding->soort == 2)
                         @if(!$melding->status)
-                            <a href="{{ route('melding.confirm', $melding->meldingID) }}">accepteer</a>
-                        @else
-                            Geaccepteerd
+                            <a href="{{ route('melding.confirm', $melding->meldingID    ) }}">Accepteer</a>
+                            <a href="{{ route('melding.reject', $melding->meldingID) }}">Afwijzen</a>
                         @endif
+                            @if ($melding->status === 'approved')
+                                Geaccepteerd
+                            @elseif ($melding->status === 'rejected')
+                                Afgewezen
+                            @else
+                                In afwachting
+                            @endif
                     @endif
 
                 </td>

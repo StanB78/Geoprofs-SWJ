@@ -20,7 +20,14 @@ return new class extends Migration
             $table->timestamps();
             $table->date('startdatum')->nullable();
             $table->date('einddatum')->nullable();
-            $table->boolean('status')->nullable();
+            $table->string('status')->nullable();
+        });
+    }
+
+    public function request()
+    {
+        Schema::table('meldingen', function (Blueprint $table) {
+            $table->string('status')->default('pending')->change();
         });
     }
 
