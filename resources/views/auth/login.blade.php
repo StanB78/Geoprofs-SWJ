@@ -39,11 +39,85 @@
                     <a href="{{ route('password.request') }}">Forgot your password?</a>
                 </div>
 
-                <div>
-                    <a href="/register">Register</a>
-                </div>
             </form>
 
         </div>
     </div>
 </x-app-layout>
+
+
+<script>
+
+    // ========== 1: Check of er al een device uuid bestaat ==========
+    if (!localStorage.getItem('device_uuid')) {
+        localStorage.setItem('device_uuid', crypto.randomUUID());
+    }
+
+    // ========== 2: IP ophalen via backend en opslaan ==========
+    // We inject backend IP in JS
+    localStorage.setItem('login_ip', "{{ request()->ip() }}");
+
+    // ========== 3: Pogingen opbouwen ==========
+    function addAttempt() {
+        const current = parseInt(localStorage.getItem('login_attempts')) || 0;
+        localStorage.setItem('login_attempts', current + 1);
+    }
+
+    function resetAttempts() {
+        localStorage.removeItem('login_attempts');
+        localStorage.removeItem('login_lock_until');
+    }
+
+    // ========== 4: Als je gefaald hebt, teller verhogen ==========
+    @if ($errors->any())
+    addAttempt();
+    @endif
+
+    // ========== 5: Lock instellen ==========
+    const maxAttempts = 3;
+    const lockTimeMs = 60 * 1000; // 1 minuut
+
+    const attempts = parseInt(localStorage.getItem('login_attempts')) || 0;
+    const lockUntil = localStorage.getItem('login_lock_until');
+    const now = Date.now();
+
+    if (lockUntil && now < lockUntil) {
+        // Nog gelocked
+        disableLogin();
+    }
+
+    if (attempts >= maxAttempts && !lockUntil) {
+        const lockExpires = now + lockTimeMs;
+        localStorage.setItem('login_lock_until', lockExpires);
+        disableLogin();
+    }
+
+    function disableLogin() {
+        const button = document.querySelector('button[type="submit"]');
+        button.disabled = true;
+        button.style.opacity = 0.5;
+        button.style.cursor = "not-allowed";
+
+        const msg = document.createElement("div");
+        msg.style.color = "red";
+        msg.style.marginTop = "10px";
+
+        let lockTime = parseInt(localStorage.getItem('login_lock_until'));
+
+        const interval = setInterval(() => {
+            let remaining = Math.max(0, Math.floor((lockTime - Date.now()) / 1000));
+
+            msg.innerText = "Je bent gelocked. Wacht " + remaining + " seconden.";
+
+            if (remaining <= 0) {
+                clearInterval(interval);
+                resetAttempts();
+                location.reload(); // knop wordt weer bruikbaar
+            }
+        }, 1000);
+
+        document.querySelector('form').appendChild(msg);
+    }
+
+</script>
+

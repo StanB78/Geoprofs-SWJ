@@ -14,4 +14,5 @@
     <a href="{{ route('melding') }}"> Ja, afwijzen</a>
     <a href="{{ route('melding') }}"> Nee, terug</a>
 </form>
+
 </x-app-layout>
