@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
     <title>Register</title>
 </head>
@@ -30,15 +30,25 @@
     </div>
 
     <div>
-        <label for="cars">rol:</label>
-        <select id="rol" name="rol">
+        <label for="cars">rol:
+            <select id="rol" name="rol">
 
-        <option value="1">Werknemer </option>
-            <option value="2">Manager/Teamlead</option>
-            <option value="3">Administratie/HR</option>
+                <option value="1">Werknemer</option>
+                <option value="2">Manager/Teamlead</option>
+                <option value="3">Administratie/HR</option>
+            </select>
+        </label>
+    </div>
+    <div>
+        <label for="sector">Sector:</label>
+        <select id="sector" name="sector">
+
+            <option value="1">Landmeten Field Teams</option>
+            <option value="2">Geo-ICT & Data</option>
+            <option value="3">Drone & Imaging</option>
+            <option value="4">Bedrijfsvoering</option>
         </select>
     </div>
-
     <div>
         <button type="submit">Register</button>
     </div>
