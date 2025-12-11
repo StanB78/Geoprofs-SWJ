@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'email' => 'user@1.com',
             'password' => Hash::make('password'),
             'rol' => 1,
+            'sectorID' => 1,
             'leaveToken' => 2,
         ]);
         User::create([
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
             'email' => 'user@2.com',
             'password' => Hash::make('password'),
             'rol' => 2,
+            'sectorID' => 1,
             'leaveToken' => 3,
         ]);
         User::create([
@@ -37,6 +39,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'rol' => 3,
             'leaveToken' => 5,
+            'sectorID' => 1,
         ]);
     }
 }
