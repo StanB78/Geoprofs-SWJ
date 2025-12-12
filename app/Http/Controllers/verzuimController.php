@@ -35,13 +35,20 @@ class verzuimController extends Controller
             $user->save();
         }
 
-        Verzuim::create([
+        $verzuim = Verzuim::create([
             'userID' => $user->id,
             'soort' => $request->redenverzuim,
             'melding' => $request->melding,
             'startdatum' => $request->startdatum,
             'einddatum' => $request->einddatum,
+            'rol' => $user->rol,
+            'sectorID' => $user->sectorID,
         ]);
+        $rol = $verzuim->rol;
+        $sectorID = $verzuim->sectorID;
+
+
+
 
         return redirect()->back()->with('success', 'Verzoek verzonden.');
     }

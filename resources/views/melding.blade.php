@@ -1,3 +1,9 @@
+{{--comments--}}
+{{--|| add soe when you can eccept somehting it has a nice button and
+that you can see clearly see when somehtong is accepted --}}
+
+{{--|| make it so the tabels look more orinized--}}
+
 <x-app-layout>
 
     <style>
@@ -54,80 +60,69 @@
 
 
     <h1 style="font-size: 28px; font-weight: bold;">Meldingen</h1>
+    <h1>Meldingen</h1>
 
-    <table>
+
+    <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
         <thead>
         <tr>
-            <th>ID</th>
+            <th>User ID</th>
+            <th>Rol</th>
+            <th>Sector ID</th>
             <th>Soort</th>
             <th>Melding</th>
-            <th>Datum</th>
-            <th>Status</th>
-            <th>Saldo</th>
             <th>Startdatum</th>
             <th>Einddatum</th>
+            <th>Datum aangemaakt</th>
+            <th>Status</th>
+            <th>Saldo</th>
         </tr>
         </thead>
-
         <tbody>
         @foreach($meldingen as $melding)
+            @if(Auth::user()?->rol == 3 || $melding->sectorID == Auth::user()?->sectorID)
+
+
             <tr>
-
-
                 <td>{{ $melding->userID }}</td>
-
-
+                <td>{{ $melding->rol }}</td>
+                <td>{{$melding->user->sector->naam}}</td>
                 <td>
-                    {{ $melding->soort == 1 ? 'Ziek' : 'Verlof' }}
+                    @if($melding->soort == 1)
+                        Ziek
+                    @elseif($melding->soort == 2)
+                        Verlof
+                    @endif
                 </td>
-
                 <td>{{ $melding->melding }}</td>
-
+                <td>{{ $melding->startdatum }}</td>
+                <td>{{ $melding->einddatum }}</td>
                 <td>{{ $melding->created_at->format('d-m-Y H:i') }}</td>
-
-
                 <td>
                     @if($melding->soort == 2)
-
                         @if(!$melding->status)
-                            <a class="btn-accept"
-                               href="{{ route('melding.confirm', $melding->meldingID) }}">
-                                ✔ Accepteer
-                            </a>
-
-                            <a class="btn-reject"
-                               href="{{ route('melding.reject', $melding->meldingID) }}">
-                                ✖ Afwijzen
-                            </a>
+                            <a href="{{ route('melding.confirm', $melding->meldingID) }}">Accepteer</a> |
+                            <a href="{{ route('melding.reject', $melding->meldingID) }}">Afwijzen</a>
                         @endif
 
                         @if ($melding->status === 'approved')
-                            <span class="status-approved">✔ Geaccepteerd</span>
+                            Geaccepteerd
                         @elseif ($melding->status === 'rejected')
-                            <span class="status-rejected">✖ Afgewezen</span>
+                            Afgewezen
                         @else
-                            <span class="status-pending">⏳ In afwachting</span>
+                            In afwachting
                         @endif
-
-                    @else
-                        -
                     @endif
                 </td>
-
-
-                <td>{{ $melding->leaveToken }}</td>
-
-                <td>{{ $melding->startdatum }}</td>
-
-                <td>{{ $melding->einddatum }}</td>
-
+                <td>{{ $melding->leaveToken ?? '-' }}</td>
             </tr>
+            @endif
         @endforeach
         </tbody>
     </table>
 
-    <br>
-
-    <a href="{{ route('dashboard') }}">⬅ Terug</a>
+    <div style="margin-top: 1rem;">
+        <a href="{{ route('dashboard') }}" style="color: #3490dc;">Terug</a>
+    </div>
 
 </x-app-layout>
