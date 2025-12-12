@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Melding;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-
 
 class MeldingController extends Controller
 {
     public function show()
     {
-        $meldingen = Melding::all();
+        $meldingen = Melding::with(['user.sector'])->get();
 
-
+        // Keep your original code
         foreach ($meldingen as $melding) {
-            $melding->leaveToken = User::find($melding->userID)->leaveToken;
+            if ($melding->user) {
+                $melding->leaveToken = $melding->user->leaveToken;
+            }
         }
 
         return view('melding', compact('meldingen'));

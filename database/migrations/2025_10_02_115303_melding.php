@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('meldingen', function (Blueprint $table) {
             $table->id('meldingID');
             $table->integer('userID');
+            $table->integer('rol');
+            $table->string('sectorID');
             $table->integer('soort');
             $table->text('melding');
             $table->text('sendmessage')->nullable();
