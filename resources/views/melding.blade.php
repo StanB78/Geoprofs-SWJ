@@ -1,8 +1,4 @@
-{{--comments--}}
-{{--|| add soe when you can eccept somehting it has a nice button and
-that you can see clearly see when somehtong is accepted --}}
 
-{{--|| make it so the tabels look more orinized--}}
 
 <x-app-layout>
 
@@ -60,7 +56,6 @@ that you can see clearly see when somehtong is accepted --}}
 
 
     <h1 style="font-size: 28px; font-weight: bold;">Meldingen</h1>
-    <h1>Meldingen</h1>
 
 
     <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
@@ -101,17 +96,17 @@ that you can see clearly see when somehtong is accepted --}}
                 <td>
                     @if($melding->soort == 2)
                         @if(!$melding->status)
-                            <a href="{{ route('melding.confirm', $melding->meldingID) }}">Accepteer</a> |
-                            <a href="{{ route('melding.reject', $melding->meldingID) }}">Afwijzen</a>
+                            <a class="btn-accept" href="{{ route('melding.confirm', $melding->meldingID) }}"> ✔ Accepteer</a>
+                            <a class="btn-reject" href="{{ route('melding.reject', $melding->meldingID) }}">✖ Afwijzen</a>
                         @endif
 
-                        @if ($melding->status === 'approved')
-                            Geaccepteerd
-                        @elseif ($melding->status === 'rejected')
-                            Afgewezen
-                        @else
-                            In afwachting
-                        @endif
+                            @if ($melding->status === 'approved')
+                                <span class="status-approved">✔ Geaccepteerd</span>
+                            @elseif ($melding->status === 'rejected')
+                                <span class="status-rejected">✖ Afgewezen</span>
+                            @else
+                                <span class="status-pending">⏳ In afwachting</span>
+                            @endif
                     @endif
                 </td>
                 <td>{{ $melding->leaveToken ?? '-' }}</td>
@@ -121,8 +116,7 @@ that you can see clearly see when somehtong is accepted --}}
         </tbody>
     </table>
 
-    <div style="margin-top: 1rem;">
-        <a href="{{ route('dashboard') }}" style="color: #3490dc;">Terug</a>
-    </div>
+    <a href="{{ route('dashboard') }}">Terug</a>
 
 </x-app-layout>
+
