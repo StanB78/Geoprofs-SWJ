@@ -2,6 +2,7 @@
 
     <h1>Meldingen</h1>
 
+
     <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
         <thead>
         <tr>
@@ -19,6 +20,9 @@
         </thead>
         <tbody>
         @foreach($meldingen as $melding)
+            @if(Auth::user()?->rol == 3 || $melding->sectorID == Auth::user()?->sectorID)
+
+
             <tr>
                 <td>{{ $melding->userID }}</td>
                 <td>{{ $melding->rol }}</td>
@@ -52,6 +56,7 @@
                 </td>
                 <td>{{ $melding->leaveToken ?? '-' }}</td>
             </tr>
+            @endif
         @endforeach
         </tbody>
     </table>
