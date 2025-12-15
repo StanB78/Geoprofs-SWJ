@@ -8,10 +8,12 @@ class Melding extends Model
 {
     protected $table = 'meldingen';
 
-    // Tell Laravel the primary key is 'meldingID'
     protected $primaryKey = 'meldingID';
-
-    // Optional but recommended
-    public $incrementing = true;  // it is auto-increment
+    public $incrementing = true;
     protected $keyType = 'int';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userID');
+    }
 }
