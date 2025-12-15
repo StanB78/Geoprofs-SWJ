@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Melding;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,13 +14,12 @@ class MeldingController extends Controller
      */
     public function show()
     {
-        // Load all meldingen
         $meldingen = Melding::all();
 
-        // Attach the leaveToken from the related user
         foreach ($meldingen as $melding) {
-            $user = User::find($melding->userID);
-            $melding->leaveToken = $user ? $user->leaveToken : 0;
+            $melding->leaveToken = optional(
+                User::find($melding->userID)
+            )->leaveToken ?? 0;
         }
 
         return view('melding', compact('meldingen'));
@@ -32,7 +32,6 @@ class MeldingController extends Controller
     {
         $melding = Melding::findOrFail($id);
 
-        // Only verlof (2) can be confirmed
         if ($melding->soort != 2) {
             return redirect()->route('melding');
         }
@@ -61,6 +60,42 @@ class MeldingController extends Controller
     }
 
     /**
+     * Meldingen PDF (admin)
+     */
+    public function verzuimPdf()
+    {
+        if (!\App\Http\Middleware\RoleCheck::check(3)) {
+            abort(403);
+        }
+
+        $meldingen = Melding::all();
+
+        foreach ($meldingen as $melding) {
+            $melding->leaveToken = optional(
+                User::find($melding->userID)
+            )->leaveToken ?? 0;
+        }
+
+        return Pdf::loadView('melding-pdf', compact('meldingen'))
+            ->download('meldingen-log.pdf');
+    }
+
+    /**
+     * Werknemers PDF (admin)
+     */
+    public function werknemersPdf()
+    {
+        if (!\App\Http\Middleware\RoleCheck::check(3)) {
+            abort(403);
+        }
+
+        $users = User::all();
+
+        return Pdf::loadView('werknemers-pdf', compact('users'))
+            ->download('werknemers-log.pdf');
+    }
+
+    /**
      * Reject leave request
      */
     public function reject($id)
@@ -68,32 +103,27 @@ class MeldingController extends Controller
         $melding = Melding::findOrFail($id);
 
         if ($melding->soort == 2) {
-
-            // Update melding status
             $melding->status = 'rejected';
             $melding->save();
 
-            // Restore leaveToken to user
             $user = User::find($melding->userID);
             if ($user) {
                 $user->leaveToken += 1;
                 $user->save();
             }
 
-            // Show reject page (same as before)
             return view('melding-reject', compact('melding'));
         }
 
-        return redirect()->route('melding')->with('error', 'Melding afgewezen.');
+        return redirect()->route('melding');
     }
 
     /**
-     * Delete a melding
+     * Delete melding
      */
     public function destroy($id)
     {
-        $melding = Melding::findOrFail($id);
-        $melding->delete();
+        Melding::findOrFail($id)->delete();
         return redirect()->back();
     }
 }

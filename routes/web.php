@@ -55,6 +55,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/verzuim', [verzuimController::class, 'store'])->name('verzuim');
 });
 
+Route::get('/melding/pdf', [MeldingController::class, 'verzuimPdf'])
+    ->name('melding.pdf');
+
+Route::get('/werknemers/pdf', [MeldingController::class, 'werknemersPdf'])
+    ->name('werknemers.pdf');
 
 Route::middleware('auth')->group(function () {
     Route::get('/melding', [MeldingController::class, 'show'])->middleware('rolecheck:2')->name('melding');

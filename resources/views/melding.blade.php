@@ -126,6 +126,23 @@
         </tbody>
     </table>
 
+    @if(\App\Http\Middleware\RoleCheck::check(3))
+        <a href="{{ route('melding.pdf') }}"
+           class="btn-accept"
+           style="margin-bottom:10px; display:inline-block;">
+            Download Verzuim log
+        </a>
+    @endif
+
+    @if(\App\Http\Middleware\RoleCheck::check(3))
+        <a href="{{ route('werknemers.pdf') }}"
+           class="btn-accept"
+           style="margin-bottom:10px; display:inline-block;">
+            Download Werknemer lijst
+        </a>
+    @endif
+
+
     <br>
 
     <a href="{{ route('dashboard') }}">⬅ Terug</a>
