@@ -7,6 +7,18 @@ use App\Models\Melding;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\User;
+
+
+Route::get('/cypress/random-user', function () {
+    $user = User::inRandomOrder()->first();
+    return response()->json([
+        'email' => $user->email,
+        'password' => 'password'
+    ]);
+});
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -65,7 +77,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/melding', [MeldingController::class, 'show'])->middleware('rolecheck:2')->name('melding');
     Route::get('/melding/{id}/confirm', [MeldingController::class, 'confirm'])->name('melding.confirm');
     Route::post('/melding/{id}/accept', [MeldingController::class, 'accept'])->name('melding.accept');
-    Route::get('/melding/{id}/reject', [MeldingController::class, 'reject'])->name('melding.reject');
+    Route::get('/melding/{id}/reject', [MeldingController::class, 'confirmReject'])->name('melding.reject.confirm');
+    Route::post('/melding/{id}/reject', [MeldingController::class, 'reject'])->name('melding.reject');
 
 });
 

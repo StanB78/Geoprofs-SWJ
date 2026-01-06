@@ -96,9 +96,10 @@
                             </a>
 
                             <a class="btn-reject"
-                               href="{{ route('melding.reject', $melding->meldingID) }}">
+                                href="{{ route('melding.reject.confirm', $melding->meldingID) }}">
                                 ✖ Afwijzen
                             </a>
+
                         @endif
 
                         @if ($melding->status === 'approved')

@@ -98,11 +98,28 @@ class MeldingController extends Controller
     /**
      * Reject leave request
      */
-    public function reject($id)
+
+    public function confirmReject($id)
     {
         $melding = Melding::findOrFail($id);
 
+        if ($melding->soort != 2) {
+            return redirect()->route('melding');
+        }
+
+        return view('melding-reject', compact('melding'));
+    }
+
+    public function reject($id, Request $request)
+    {
+        $melding = Melding::findOrFail($id);
+
+        $request->validate([
+            'sendmessage' => ['required', 'string', 'max:255'],
+        ]);
+
         if ($melding->soort == 2) {
+            $melding->sendmessage = $request->sendmessage;
             $melding->status = 'rejected';
             $melding->save();
 
@@ -111,12 +128,11 @@ class MeldingController extends Controller
                 $user->leaveToken += 1;
                 $user->save();
             }
-
-            return view('melding-reject', compact('melding'));
         }
 
-        return redirect()->route('melding');
+        return redirect()->route('melding')->with('success', 'Melding afgewezen.');
     }
+
 
     /**
      * Delete melding
