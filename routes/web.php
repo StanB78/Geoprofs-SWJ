@@ -35,9 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
 Route::get('/berichten', function () {
-    return view('berichten');
+    $meldingen = Melding::all(); // haal alle meldingen op
+    return view('berichten', compact('meldingen'));
 })->name('berichten');
+
 
 Route::get('/about', function () {
     return view('about');

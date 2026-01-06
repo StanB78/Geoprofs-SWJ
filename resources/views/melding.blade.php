@@ -116,7 +116,7 @@
                 </td>
 
 
-                <td>{{ $melding->leaveToken }}</td>
+                    <td>{{ $melding->leaveToken }}</td>
 
                 <td>{{ $melding->startdatum }}</td>
 
