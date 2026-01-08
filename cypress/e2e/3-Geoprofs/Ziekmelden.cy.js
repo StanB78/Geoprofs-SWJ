@@ -14,7 +14,9 @@ describe('Ziekmelding indienen', () => {
         // 3. Assert redirect to dashboard
         cy.get('a').contains('verzuim').should('be.visible').click();
         cy.get('#melding').type('ben ziek');
-        cy.get('#einddatum').type(Cypress.$('#einddatum').attr('min'));
+        cy.get('#startdatum').type('2027-01-01')
+        cy.get('button[type="submit"]').click()
+
 
     })
 
