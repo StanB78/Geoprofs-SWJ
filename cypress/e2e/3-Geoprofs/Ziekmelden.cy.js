@@ -17,6 +17,7 @@ describe('Ziekmelding indienen', () => {
         cy.get('#startdatum').type('2027-01-01')
         cy.get('button[type="submit"]').click()
 
+        cy.contains('Terug').click();
 
     })
 

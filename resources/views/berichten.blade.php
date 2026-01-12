@@ -5,11 +5,11 @@
             @if($melding->userID == auth()->id())
                 @if($melding->soort == 2)
                     @if($melding->status == null)
-                        <div class="bg-amber-500 p-4 rounded w-auto flex flex-col">
+                        <div class="bg-gray-300 p-4 rounded w-auto flex flex-col">
 
                             <p class="font-bold text-2xl"> Verlof aanvraag</p>
                             <p><span>Melding:</span> {{ $melding->melding }}</p>
-                            <p><span>uw melding is:</span> {{ $melding->status }}</p>
+                            <p><span>uw aanvraag is:</span> In afwachting</p>
                             <p><span>Startdatum:</span> {{ $melding->startdatum }}</p>
                             <p><span>Einddatum:</span> {{ $melding->einddatum }}</p>
                         </div>
@@ -26,13 +26,14 @@
             @if($melding->userID == auth()->id())
                 @if($melding->soort == 2)
                     @if($melding->status != null)
-                        <div class="bg-amber-500 p-4 rounded w-auto flex flex-col">
+                        <div class="bg-gray-300 p-4 rounded w-auto flex flex-col">
 
                             <p class="font-bold text-2xl"> Verlof aanvraag</p>
                             <p><span>Melding:</span> {{ $melding->melding }}</p>
-                            <p><span>uw melding is:</span> {{ $melding->status }}</p>
+                            <p><span>uw aanvraag is:</span> {{ $melding->status }}</p>
                             <p><span>Startdatum:</span> {{ $melding->startdatum }}</p>
                             <p><span>Einddatum:</span> {{ $melding->einddatum }}</p>
+                            <p><span>Berciht terug naar u:</span> {{ $melding->sendmessage }}</p>
                         </div>
                     @endif
                 @endif
