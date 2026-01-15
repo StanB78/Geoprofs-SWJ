@@ -6,6 +6,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Melding;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class MeldingController extends Controller
 {
@@ -14,6 +15,8 @@ class MeldingController extends Controller
      */
     public function show()
     {
+        $today = Carbon::today();
+
         $meldingen = Melding::all();
 
         foreach ($meldingen as $melding) {
@@ -22,8 +25,24 @@ class MeldingController extends Controller
             )->leaveToken ?? 0;
         }
 
-        return view('melding', compact('meldingen'));
+        $ziekVandaag = Melding::where('soort', 1)
+            ->whereDate('startdatum', '<=', $today)
+            ->whereDate('einddatum', '>=', $today)
+            ->count();
+
+        $verlofVandaag = Melding::where('soort', 2)
+            ->where('status', 'approved')
+            ->whereDate('startdatum', '<=', $today)
+            ->whereDate('einddatum', '>=', $today)
+            ->count();
+
+        return view('melding', [
+            'meldingen'     => $meldingen,
+            'ziekVandaag'   => $ziekVandaag,
+            'verlofVandaag' => $verlofVandaag,
+        ]);
     }
+
 
     /**
      * Show confirmation page

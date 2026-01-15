@@ -50,10 +50,28 @@
             font-weight: bold;
         }
 
+        .parent-vz {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
     </style>
 
 
     <h1 style="font-size: 28px; font-weight: bold;">Meldingen</h1>
+
+    <div class="parent-vz">
+        <div>
+            <strong>Aantal werknemers op verlof:</strong>
+            {{ $verlofVandaag }}
+        </div>
+
+        <div>
+            <strong>Aantal werknemers ziek:</strong>
+            {{ $ziekVandaag }}
+        </div>
+    </div>
 
     <table>
         <thead>
