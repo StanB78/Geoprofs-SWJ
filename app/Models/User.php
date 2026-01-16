@@ -10,7 +10,17 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+
+
+
+    public function index()
+    {
+        $users = User::all();
+        return view('users.index', compact('users'));
+    }
+
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -30,6 +40,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
 
 
     public function sector()

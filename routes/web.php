@@ -37,10 +37,13 @@ Route::middleware('auth')->group(function () {
 
 
 
+
 Route::get('/berichten', function () {
-    $meldingen = Melding::all(); // haal alle meldingen op
-    return view('berichten', compact('meldingen'));
+    $meldingen = Melding::all();
+    $users = User::all();
+    return view('berichten', compact('meldingen', 'users'));
 })->name('berichten');
+
 
 
 Route::get('/about', function () {
