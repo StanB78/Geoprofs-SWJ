@@ -87,5 +87,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/melding/{id}/reject', [MeldingController::class, 'confirmReject'])->name('melding.reject.confirm');
     Route::post('/melding/{id}/reject', [MeldingController::class, 'reject'])->name('melding.reject');
 
+
 });
 
