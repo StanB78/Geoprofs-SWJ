@@ -4,7 +4,7 @@ describe('TC-011 – User account wordt aangemaakt door admin', () => {
         // Login as admin
         cy.visit('http://127.0.0.1:8000/login');
 
-        cy.get('input[type="email"]').type('amira70@example.com'); // admin account
+        cy.get('input[type="email"]').type('emacejkovic@example.com'); // admin account
         cy.get('input[type="password"]').type('password');
 
         cy.get('button[type="submit"]').click();
