@@ -1,4 +1,4 @@
-describe('Ziekmelding indienen', () => {
+describe('Ziekmelding ', () => {
 
     it('maakt een ziekmelding succesvol aan', () => {
 

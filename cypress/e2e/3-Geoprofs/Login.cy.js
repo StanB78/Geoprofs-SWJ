@@ -1,6 +1,6 @@
-describe('Ziekmelding indienen', () => {
+describe('Login ', () => {
 
-    it('maakt een ziekmelding succesvol aan', () => {
+    it('Log succesvol in', () => {
 
         cy.visit('http://127.0.0.1:8000')
         cy.contains('Log In').click();
