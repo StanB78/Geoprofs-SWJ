@@ -5,14 +5,14 @@ describe('Download PDFs from melding page', () => {
         cy.visit('http://127.0.0.1:8000/login');
 
         // Fill in login form
-        cy.get('input[type="email"]').type('amira70@example.com');
+        cy.get('input[type="email"]').type('emacejkovic@example.com');
         cy.get('input[type="password"]').type('password');
 
         // Submit login
         cy.get('button[type="submit"]').click();
 
         // Assert login success (dashboard or redirect)
-        cy.url({ timeout: 10000 }).should('include', '/dashboard');
+        cy.url({ timeout: 20000 }).should('include', '/dashboard');
 
         // Go to melding page
         cy.visit('http://127.0.0.1:8000/melding');

@@ -1,40 +1,43 @@
 <?php
 
+namespace Tests\Feature;
+
+use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(RefreshDatabase::class);
+class DownloadPdfTest extends TestCase
+{
+    use RefreshDatabase;
 
-beforeEach(function () {
-    // Create admin or manager user
-    $this->admin = User::factory()->create([
-        'email' => 'amira70@example.com',
-        'password' => bcrypt('password'),
-        'role' => 'admin', // adjust role as needed
-    ]);
+    protected User $admin;
 
-    // Simulate login
-    $this->actingAs($this->admin);
-});
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-it('downloads the Verzuim log PDF', function () {
-    // Request the Verzuim log PDF route
-    $response = $this->get('/melding/pdf');
+        $this->admin = User::factory()->create([
+            'email' => 'amira70@example.com',
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
 
-    // Assert status 200
-    $response->assertStatus(200);
+        $this->actingAs($this->admin);
+    }
 
-    // Assert response is a PDF
-    $response->assertHeader('Content-Type', 'application/pdf');
-});
+    public function test_downloads_verzuim_log_pdf()
+    {
+        $response = $this->get('/melding/pdf');
 
-it('downloads the Werknemer lijst PDF', function () {
-    // Request the Werknemer lijst PDF route
-    $response = $this->get('/werknemers/pdf');
+        $response->assertStatus(200);
+        $response->assertHeader('Content-Type', 'application/pdf');
+    }
 
-    // Assert status 200
-    $response->assertStatus(200);
+    public function test_downloads_werknemer_lijst_pdf()
+    {
+        $response = $this->get('/werknemers/pdf');
 
-    // Assert response is a PDF
-    $response->assertHeader('Content-Type', 'application/pdf');
-});
+        $response->assertStatus(200);
+        $response->assertHeader('Content-Type', 'application/pdf');
+    }
+}
