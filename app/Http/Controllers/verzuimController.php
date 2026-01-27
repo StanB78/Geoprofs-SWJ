@@ -41,10 +41,14 @@ class verzuimController extends Controller
             'melding' => $request->melding,
             'startdatum' => $request->startdatum,
             'einddatum' => $request->einddatum,
+            'rol' => $user->rol,
+            'sectorID' => $user->sectorID,
+
+
         ]);
 
-        $rol = $verzuim->rol;
-        $sectorID = $verzuim->sectorID;
+//        $rol = $verzuim->rol;
+//        $sectorID = $verzuim->sectorID;
 
         return redirect()->back()->with('success', 'Verzoek verzonden.');
     }
